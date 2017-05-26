@@ -16,9 +16,7 @@ let logger = function(opts) {
             }
         }
 
-        let lm = module.exports = {};
-
-        lm.init = (config) => {
+        let init = (config) => {
 
         	let loggerObj = {
         		name: 'sis logs',
@@ -41,8 +39,15 @@ let logger = function(opts) {
             lm.root = b.createLogger(loggerObj);
         }
 
+
+        return {
+            init: init
+        }
     } catch (err) {
 
         console.log('File: Logger, Error: ', err);
     }
 }
+
+
+module.exports.logger = logger();

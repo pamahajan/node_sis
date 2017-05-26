@@ -1,8 +1,10 @@
 'use strict'
 let b = require('bunyan');
 
-let logger = function(opts) {
+let logger = (() => {
     try {
+
+        let retObj = {};
 
         b.prototype.close = function(f) {
             if (!this._isSimpleChild) {
@@ -16,7 +18,7 @@ let logger = function(opts) {
             }
         }
 
-        let init = (config) => {
+        retObj.init = (config) => {
 
         	let loggerObj = {
         		name: 'sis logs',
@@ -36,18 +38,16 @@ let logger = function(opts) {
         		});
         	}
 
-            lm.root = b.createLogger(loggerObj);
+            retObj.root = b.createLogger(loggerObj);
         }
 
 
-        return {
-            init: init
-        }
+        return retObj;
     } catch (err) {
 
         console.log('File: Logger, Error: ', err);
     }
-}
+})();
 
 
-module.exports.logger = logger();
+module.exports.logger = logger;

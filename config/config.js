@@ -8,19 +8,19 @@ let environmentConfig = {
 		log: [{
 			level: 'debug',
 			path: path.join(__dirname, './../logs/dev/sis.debug.log'),
-			duration: '2' 
+			duration: 2 
 		}, {
 			level: 'info',
 			path: path.join(__dirname, './../logs/dev/sis.info.log'),
-			duration: '10' 
+			duration: 10 
 		}, {
 			level: 'error',
 			path: path.join(__dirname, './../logs/dev/sis.error.log'),
-			duration: '10'
+			duration: 10
 		}, {
 			level: 'fatal',
 			path: path.join(__dirname, './../logs/dev/sis.fatal.log'),
-			duration: '10'
+			duration: 10
 		}]		
 	}, 
 	production: {
@@ -28,15 +28,15 @@ let environmentConfig = {
 		log: [{
 			level: 'info',
 			path: path.join(__dirname, './../logs/prod/sis.info.log'),
-			duration: '15'
+			duration: 15
 		}, {
 			level: 'error',
 			path: path.join(__dirname, './../logs/prod/sis.error.log'),
-			duration: '30'
+			duration: 30
 		}, {
 			level: 'fatal',
 			path: path.join(__dirname, './../logs/prod/sis.fatal.log'),
-			duration: '30'
+			duration: 30
 		}]
 	}
 

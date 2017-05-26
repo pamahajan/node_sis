@@ -46,7 +46,7 @@ let platformConfig = {
 
 	log: environmentConfig.log,
 	mongo: {
-		url: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || config.database
+		url: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || environmentConfig.database
 	}
 }
 

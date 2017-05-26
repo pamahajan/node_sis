@@ -19,19 +19,26 @@ let logger = function(opts) {
         let lm = module.exports = {};
 
         lm.init = (config) => {
-            lm.root = b.createLogger({
-                name: 'root',
-                streams: [{
-                    level: config.log.level,
-                    stream: process.stdout
-                }, {
-                    type: 'rotating-file',
-                    path: config.log.path,
-                    count: 30,
-                    period: '1d',
-                    level: config.log.level
-                }]
-            });
+
+        	let loggerObj = {
+        		name: 'sis logs',
+        		streams: []
+        	};
+
+        	for(let i=0; i<config.log.length; i++){
+        		loggerObj.streams.push({
+        			level: config.log[i].level,
+        			stream: process.stdout
+        		}, {
+        			type: 'rotating-file',
+        			path: config.log[i].path,
+        			count: config.log[i].duration,
+        			period: '1d',
+        			level: config.log[i].level
+        		});
+        	}
+
+            lm.root = b.createLogger(loggerObj);
         }
 
     } catch (err) {

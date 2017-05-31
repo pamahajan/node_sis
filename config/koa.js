@@ -1,8 +1,10 @@
 'use strict'
 
-let requireAllFeatures = require('./../features');
+let requireAllFeatures = require('./../features'),
+	logger = require('./../utilities/logger'),
+	l = require('./../utilities/logger').root.child({'module': __filename.substring(__dirname.length + 1, __filename.length - 3)});
 
-module.exports = function(app){
+module.exports = (app) => {
 
 	requireAllFeatures();
 }

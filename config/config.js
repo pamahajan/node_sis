@@ -6,7 +6,7 @@ let environmentConfig = {
 	development: {
 		database: 'mongodb://127.0.0.1:27017/sis_dev',
 		log: [{
-			level: 'debug',
+			level: 20,
 			path: path.join(__dirname, './../logs/dev/sis.debug.log'),
 			duration: 2 
 		}, {
@@ -47,6 +47,10 @@ let platformConfig = {
 	log: environmentConfig.log,
 	mongo: {
 		url: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || environmentConfig.database
+	}, 
+
+	app: {
+		port: 3000
 	}
 }
 

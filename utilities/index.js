@@ -1,53 +1,31 @@
 'use strict'
-let b = require('bunyan');
 
-let logger = (() => {
-    try {
+let l = require('./logger').root.child({'module': __filename.substring(__dirname.length + 1, __filename.length - 3)}),
+    co = require('co'),
+    fs = require('fs');
 
-        let retObj = {};
+let custom_co = (() => {
+    try{
+    
+        return co 
+    } catch(err){
 
-        b.prototype.close = function(f) {
-            if (!this._isSimpleChild) {
-                this.streams.forEach(function(s) {
-                    if (s.closeOnExit) {
-                        console.log('closing stream s:', s);
-                        s.stream.end(f);
-                        s.closeOnExit = false;
-                    }
-                });
-            }
-        }
-
-        retObj.init = (config) => {
-
-        	let loggerObj = {
-        		name: 'sis logs',
-        		streams: []
-        	};
-
-        	for(let i=0; i<config.log.length; i++){
-        		loggerObj.streams.push({
-        			level: config.log[i].level,
-        			stream: process.stdout
-        		}, {
-        			type: 'rotating-file',
-        			path: config.log[i].path,
-        			count: config.log[i].duration,
-        			period: '1d',
-        			level: config.log[i].level
-        		});
-        	}
-
-            retObj.root = b.createLogger(loggerObj);
-        }
-
-
-        return retObj;
-    } catch (err) {
-
-        console.log('File: Logger, Error: ', err);
+        l.error('File Utilities, Error while implementing custom co', err);
     }
 })();
 
+let custom_fs = (() => {
+    try{
 
-module.exports.logger = logger;
+        return {
+            readdirSync: fs.readdirSync,
+            lstatSync: fs.lstatSync
+        }
+    } catch(err){
+
+        l.error('File Utilities, Error while implementing custom fs', err);
+    }
+})();
+
+module.exports.co = custom_co;
+module.exports.fs = custom_fs;
